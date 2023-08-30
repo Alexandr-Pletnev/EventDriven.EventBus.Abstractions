@@ -1,33 +1,32 @@
 ﻿using System.Threading.Tasks;
 
-namespace EventDriven.EventBus.Abstractions
+namespace EventDriven.EventBus.Abstractions;
+
+/// <summary>
+/// Handler for integration events.
+/// </summary>
+public interface IIntegrationEventHandler
 {
     /// <summary>
-    /// Handler for integration events.
+    /// Handler topic.
     /// </summary>
-    public interface IIntegrationEventHandler
-    {
-        /// <summary>
-        /// Handler topic.
-        /// </summary>
-        string Topic { get; set; }
-
-        /// <summary>
-        /// Handle an event asynchronously.
-        /// </summary>
-        /// <param name="event">Integration event.</param>
-        /// <returns>Task that will complete when the operation has completed.</returns>
-        Task HandleAsync(IIntegrationEvent @event);
-    }
+    string Topic { get; set; }
 
     /// <summary>
-    /// Handler for integration events.
+    /// Handle an event asynchronously.
     /// </summary>
-    /// <typeparam name="TIntegrationEvent">Integration event type.</typeparam>
-    public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
-        where TIntegrationEvent : IIntegrationEvent
-    {
-        /// <inheritdoc cref="IIntegrationEventHandler" />
-        Task HandleAsync(TIntegrationEvent @event);
-    }
+    /// <param name="event">Integration event.</param>
+    /// <returns>Task that will complete when the operation has completed.</returns>
+    Task HandleAsync(IIntegrationEvent @event);
+}
+
+/// <summary>
+/// Handler for integration events.
+/// </summary>
+/// <typeparam name="TIntegrationEvent">Integration event type.</typeparam>
+public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
+    where TIntegrationEvent : IIntegrationEvent
+{
+    /// <inheritdoc cref="IIntegrationEventHandler" />
+    Task HandleAsync(TIntegrationEvent @event);
 }

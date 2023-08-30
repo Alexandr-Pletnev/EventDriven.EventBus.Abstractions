@@ -16,7 +16,7 @@ public interface IEventCache
     /// False if the event is in the cache and not expired or it cannot be removed. 
     /// </returns>
     bool TryAdd(IntegrationEvent @event);
-    
+
     /// <summary>
     /// Attempts to add the integration event to the event cache.
     /// </summary>

@@ -13,7 +13,7 @@ namespace EventDriven.EventBus.Abstractions;
 public class InMemoryEventCache : IEventCache
 {
     private readonly AsyncLock _syncRoot = new();
-    
+
     /// <summary>
     /// Event cache options.
     /// </summary>
@@ -79,18 +79,18 @@ public class InMemoryEventCache : IEventCache
     {
         // Return true if not enabled
         if (!EventCacheOptions.EnableEventCache) return true;
-        
+
         // Return false if event exists and is not expired
         bool expired = false;
         if (Cache.TryGetValue(@event.Id, out var existing))
             expired = existing.EventHandledTimeout < DateTime.UtcNow - existing.EventHandledTime;
         if (existing != null && !expired) return false;
-        
+
         // Remove existing; return false if unable to remove
         if (existing != null
             && !Cache.TryRemove(@event.Id, out existing))
             return false;
-            
+
         // Add event handling
         var handling = new EventHandling
         {

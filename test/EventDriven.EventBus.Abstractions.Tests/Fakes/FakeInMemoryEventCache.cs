@@ -14,11 +14,11 @@ public class FakeInMemoryEventCache : InMemoryEventCache
     {
         // Return true if not enabled
         if (!EventCacheOptions.EnableEventCache) return true;
-        
+
         // Return false if event exists
         if (Cache.TryGetValue(@event.Id, out _))
             return false;
-        
+
         // Add event handling
         var handling = new EventHandling
         {
